@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { pb } from '../lib/pocketbase';
-import { useAtom } from 'jotai';
-import { updateAuthAtom } from '../atoms/authAtom';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [, updateAuth] = useAtom(updateAuthAtom);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {

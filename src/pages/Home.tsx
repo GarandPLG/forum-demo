@@ -19,7 +19,6 @@ const Home: React.FC = () => {
       try {
         const records = await pb.collection('posts').getFullList<PostType>({
           sort: '-votes',
-          expand: 'user',
         });
         setPosts(records);
       } catch (error) {

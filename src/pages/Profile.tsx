@@ -5,6 +5,7 @@ import { updateAuthAtom } from '../atoms/authAtom';
 
 const Profile: React.FC = () => {
   const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [, updateAuth] = useAtom(updateAuthAtom);
@@ -23,7 +24,7 @@ const Profile: React.FC = () => {
     }
 
     try {
-      const data: Record<string, any> = { email };
+      const data: Record<string, string> = { email, username };
       if (newPassword) {
         data.password = newPassword;
         data.passwordConfirm = confirmPassword;
@@ -47,7 +48,7 @@ const Profile: React.FC = () => {
         alert('Konto poprawnie usunięte');
       } catch (error) {
         console.error('Błąd z usuwaniem konta:', error);
-        alert('Nie udało się usunąc konta.');
+        alert('Nie udało się usunąć konta.');
       }
     }
   };
@@ -68,11 +69,23 @@ const Profile: React.FC = () => {
           />
         </div>
         <div>
+          <label htmlFor="username" className="block mb-1">Nazwa użytkownika</label>
+          <input
+            type="text"
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+            className="w-full px-3 py-2 border rounded"
+          />
+        </div>
+        <div>
           <label htmlFor="newPassword" className="block mb-1">Nowe hasło</label>
           <input
             type="password"
             id="newPassword"
             value={newPassword}
+            placeholder='Zostawienie pustego pola pozostawi hasło takie jakie było'
             onChange={(e) => setNewPassword(e.target.value)}
             className="w-full px-3 py-2 border rounded"
           />
