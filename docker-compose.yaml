@@ -1,5 +1,38 @@
+name: reddit-like-app
 services:
-  app:
-    build: .
+  frontend:
+    container_name: frontend
+    image: .   # garandplg/garandswg:reddit-like-app
     ports:
       - "3333:80"
+    restart: unless-stopped
+    network_mode: bridge
+    labels:
+      icon: https://filecloud.garandplg.com/core/getfsslideimage?checkonly=0&name=%2FSHARED%2F%212cRgJptcDNm5uDIcDoJuRDcXEFpdU%2FaqfYbq6GhALh5Gn7&time=1721927167254
+    depends_on:
+      - backend
+  backend:
+    container_name: backend
+    image: ghcr.io/muchobien/pocketbase:latest
+    ports:
+      - "8090:8090"
+    restart: unless-stopped
+    network_mode: bridge
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - wget --no-verbose --tries=1 --spider http://localhost:8090/api/health
+          || exit 1
+      timeout: 5s
+      interval: 5s
+      retries: 5
+    volumes:
+      - type: bind
+        source: /DATA/AppData/PocketBase/reddit-like-app/pb_data
+        target: /pb_data
+      - type: bind
+        source: /DATA/AppData/PocketBase/reddit-like-app/pb_public
+        target: /pb_public
+      - type: bind
+        source: /DATA/AppData/PocketBase/reddit-like-app/pb_hooks
+        target: /pb_hooks

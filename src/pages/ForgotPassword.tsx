@@ -31,7 +31,7 @@ const ForgotPassword: React.FC = () => {
             className="w-full px-3 py-2 border rounded"
           />
         </div>
-        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded">Rezetuj hasło</button>
+        <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded">Resetuj hasło</button>
       </form>
       {message && <p className="mt-4 text-center">{message}</p>}
     </div>
