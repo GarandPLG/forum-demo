@@ -1,9 +1,9 @@
-name: reddit-like-app
+name: forum-demo
 services:
   frontend:
-    container_name: reddit-like-app-frontend
+    container_name: forum-demo-frontend
     build: .
-    # image: garandplg/garandswg:reddit-like-app
+    # image: garandplg/garandswg:forum-demo
     ports:
       - "3333:80"
     restart: unless-stopped
@@ -13,7 +13,7 @@ services:
     depends_on:
       - backend
   backend:
-    container_name: reddit-like-app-pocketbase
+    container_name: forum-demo-pocketbase
     image: ghcr.io/muchobien/pocketbase:latest
     ports:
       - "8090:8090"
@@ -29,11 +29,11 @@ services:
       retries: 5
     volumes:
       - type: bind
-        source: /DATA/AppData/PocketBase/reddit-like-app/pb_data
+        source: /DATA/AppData/PocketBase/forum-demo/pb_data
         target: /pb_data
       - type: bind
-        source: /DATA/AppData/PocketBase/reddit-like-app/pb_public
+        source: /DATA/AppData/PocketBase/forum-demo/pb_public
         target: /pb_public
       - type: bind
-        source: /DATA/AppData/PocketBase/reddit-like-app/pb_hooks
+        source: /DATA/AppData/PocketBase/forum-demo/pb_hooks
         target: /pb_hooks
